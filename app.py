@@ -11,3 +11,10 @@ def add(a, b):
 
 
 print(add(2, 3))
+
+
+def xargs(*numbers):
+    print(numbers)
+
+
+xargs(2, 3, 4, 5, 6)
