@@ -1,5 +1,5 @@
 import csv
-
+import json
 count = 0
 for i in range(1, 10):
     if (i % 2) == 0:
@@ -43,7 +43,13 @@ for key, value in capitals.items():
 # writer.writerow(tup1)
 # file_csv.close
 
-file = open('people.csv', 'r')
 
-for lines in csv.reader(file):
-    print(lines)
+# for lines in (csv.reader(file)):
+#     print(lines)
+with open('username.csv', 'r') as file:
+    text = list(csv.reader(file))
+    for i in range(5):
+        print(text[i])
+
+with open('capitals.json', 'w') as file:
+    json.dump(capitals, file)
