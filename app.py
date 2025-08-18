@@ -18,3 +18,14 @@ def xargs(*numbers):
 
 
 xargs(2, 3, 4, 5, 6)
+
+
+capitals = {"USA": "Washingotn",
+            "Pakistan": "Islamabad",
+            "China": "Beijing",
+            "Russia": "Moscow"}
+
+for key in capitals.keys():
+    print(key)
+for key, value in capitals.items():
+    print(f"{key}: {value}")
