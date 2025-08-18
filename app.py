@@ -1,3 +1,5 @@
+import csv
+
 count = 0
 for i in range(1, 10):
     if (i % 2) == 0:
@@ -29,3 +31,19 @@ for key in capitals.keys():
     print(key)
 for key, value in capitals.items():
     print(f"{key}: {value}")
+
+
+# file = open('test_file.txt', 'w')
+# file.write('hello world')
+# file.close()
+
+# file_csv = open('people.csv', 'a', newline='')
+# tup1 = ('awais', 28)
+# writer = csv.writer(file_csv)
+# writer.writerow(tup1)
+# file_csv.close
+
+file = open('people.csv', 'r')
+
+for lines in csv.reader(file):
+    print(lines)
