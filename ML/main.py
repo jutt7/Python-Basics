@@ -1,4 +1,5 @@
 #imports
+import json
 import pandas as pd
 import numpy as np
 
@@ -24,11 +25,7 @@ def preprocess_data(df):
       # Fare: global median
     if df['Fare'].isna().any():
         df['Fare'] = df['Fare'].fillna(df['Fare'].median())
-    # FareBin: Handle missing Fare values
-    # if df['FareBin'].isna().any():
-    #     df['FareBin'] = df['FareBin'].fillna(df['Fare'].mode()[0])
-
-
+        
     #covert gender
     df["Sex"] = df["Sex"].map({'male':1, 'female':0})
 
@@ -55,6 +52,7 @@ data = preprocess_data(data)
 # Create features / Target Variables (Make Flashcards)
 
 x = data.drop(columns=["Survived"])
+feature_columns = x.columns
 y = data["Survived"]
 
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=42)
@@ -107,4 +105,23 @@ def plot_model(matrix):
     plt.ylabel("True Values")
     plt.show()
 
-plot_model(matrix)
+def predict_sample_passenger(sample_path, scaler, model, feature_columns):
+    with open(sample_path, "r") as file:
+        passenger_data = json.load(file)
+
+    sample_df = pd.DataFrame([passenger_data])
+    sample_df["Survived"] = np.nan
+
+    titanic_raw = pd.read_csv("./ML/titanic.csv")
+    inference_df = pd.concat([titanic_raw, sample_df], ignore_index=True, sort=False)
+    inference_df = preprocess_data(inference_df)
+
+    sample_features = inference_df[inference_df["Survived"].isna()].drop(columns=["Survived"])
+    sample_features = sample_features[feature_columns]
+    scaled_features = scaler.transform(sample_features)
+    prediction = model.predict(scaled_features)[0]
+    label = "Survived" if prediction == 1 else "Did not survive"
+    print(f"Sample passenger prediction ({sample_path}): {label}")
+
+# plot_model(matrix)
+predict_sample_passenger("./ML/titanic_sample.json", scaler, best_model, feature_columns)

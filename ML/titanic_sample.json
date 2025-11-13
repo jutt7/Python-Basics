@@ -1,0 +1,13 @@
+{
+  "PassengerId": 2000,
+  "Name": "Mr. Jonathan Example",
+  "Ticket": "PC 17599",
+  "Cabin": "C85",
+  "Embarked": "C",
+  "Pclass": 1,
+  "Sex": "male",
+  "Age": 32,
+  "SibSp": 0,
+  "Parch": 0,
+  "Fare": 52.0
+}
